@@ -29,10 +29,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "apiKey", "\"AIzaSyAY5N8i6QmxjskpMuiZXOiJD_jEFfhzNMQ\"")
-        }
-        debug {
-            buildConfigField("String", "apiKey", "\"AIzaSyAY5N8i6QmxjskpMuiZXOiJD_jEFfhzNMQ\"")
         }
 
     }
