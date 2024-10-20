@@ -41,9 +41,10 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.foundation.text.ClickableText
 import android.content.Context
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     val context = LocalContext.current
     Box(
         modifier = Modifier
@@ -91,7 +92,9 @@ fun HomeScreen() {
 
             Button(
                 onClick = {
-                    println("Botón Comenzar presionado")
+                    navController.navigate("dashboard"){
+                        popUpTo("homeScreen"){inclusive=true}
+                    }
                 },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -110,7 +113,7 @@ fun HomeScreen() {
 
             Button(
                 onClick = {
-                    println("Botón Sobre la App presionado")
+                   // Click sobre github
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -128,7 +131,7 @@ fun HomeScreen() {
             append("© 2024. Esta aplicación fue desarrollada por los desarrolladores ")
             pushStringAnnotation("link_bryan", "https://github.com/brayanalmengor04")
             withStyle(style = SpanStyle(color = Color.Blue, fontWeight = FontWeight.Bold, textDecoration = TextDecoration.Underline)) {
-                append("Bryan Almenar")
+                append("Brayan Almengor")
             }
             pop()
             append(" & ")
@@ -169,9 +172,9 @@ private fun openLink(context: Context, url: String) {
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
     context.startActivity(intent)
 }
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
-}
+//
+//@Preview
+//@Composable
+//fun HomeScreenPreview() {
+//    HomeScreen(nav)
+//}

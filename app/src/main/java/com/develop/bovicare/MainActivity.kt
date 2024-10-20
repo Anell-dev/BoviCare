@@ -1,6 +1,7 @@
 package com.develop.bovicare
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,12 +13,18 @@ import com.develop.bovicare.ui.theme.BoviCareTheme
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.develop.bovicare.ui.dasboard.DasboardScreen
 import com.develop.bovicare.ui.home.HomeScreen
 import com.develop.bovicare.ui.splash.SplashScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Ocultar barra de estado (opcional)
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+
         setContent {
             val navController = rememberNavController()
             BoviCareTheme {
@@ -30,9 +37,15 @@ class MainActivity : ComponentActivity() {
                             SplashScreen(navController)
                         }
                         composable("homeScreen") {
-                            HomeScreen()
+                            HomeScreen(navController)
                         }
+
+                        composable("dashboard") {
+                            DasboardScreen()
+                        }
+
                     }
+
                 }
             }
         }
