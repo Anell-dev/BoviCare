@@ -9,17 +9,30 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.develop.bovicare.ui.theme.BoviCareTheme
 
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.develop.bovicare.ui.home.HomeScreen
+import com.develop.bovicare.ui.splash.SplashScreen
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
             BoviCareTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
+                    color = MaterialTheme.colorScheme.background
                 ) {
-                    BakingScreen()
+                    NavHost(navController = navController, startDestination = "splashScreen") {
+                        composable("splashScreen") {
+                            SplashScreen(navController)
+                        }
+                        composable("homeScreen") {
+                            HomeScreen()
+                        }
+                    }
                 }
             }
         }
