@@ -32,20 +32,13 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.sp
 
-// al poner los vinculos
-import android.content.Intent
-import android.net.Uri
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.foundation.text.ClickableText
-import android.content.Context
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
+import com.develop.bovicare.ui.copyright.CopyRightText
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -125,56 +118,15 @@ fun HomeScreen(navController: NavController) {
             ) {
                 Text(text = "Sobre la App")
             }
+            // Aqui el componente
+            CopyRightScreen()
         }
-
-        val annotatedString = buildAnnotatedString {
-            append("© 2024. Esta aplicación fue desarrollada por los desarrolladores ")
-            pushStringAnnotation("link_bryan", "https://github.com/brayanalmengor04")
-            withStyle(style = SpanStyle(color = Color.Blue, fontWeight = FontWeight.Bold, textDecoration = TextDecoration.Underline)) {
-                append("Brayan Almengor")
-            }
-            pop()
-            append(" & ")
-            pushStringAnnotation("link_edwin", "https://github.com/Anell-dev/")
-            withStyle(style = SpanStyle(color = Color.Blue, fontWeight = FontWeight.Bold, textDecoration = TextDecoration.Underline)) {
-                append("Edwin González")
-            }
-            pop()
-            append("\n\nPotenciado por ")
-            pushStringAnnotation("link_ana", "https://ejemplo.com/ana")
-            withStyle(style = SpanStyle(color = Color.Blue, fontWeight = FontWeight.Bold, textDecoration = TextDecoration.Underline)) {
-                append("Ana Patricia")
-            }
-            pop()
-            append(". Todos los derechos reservados")
-        }
-
-        ClickableText(
-            text = annotatedString,
-            onClick = { offset ->
-                annotatedString.getStringAnnotations(offset, offset).firstOrNull()?.let { annotation ->
-                    openLink(context, annotation.item)
-                }
-            },
-            modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .padding(10.dp),
-            style = MaterialTheme.typography.bodySmall.copy(
-                color = Color.Black,
-                fontSize = 14.sp,
-                textAlign = TextAlign.Center
-            )
-        )
     }
 }
-
-private fun openLink(context: Context, url: String) {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-    context.startActivity(intent)
+// Asi se incluye el copyright
+@Composable
+fun CopyRightScreen() {
+    val context = LocalContext.current
+    CopyRightText(context = context)
 }
-//
-//@Preview
-//@Composable
-//fun HomeScreenPreview() {
-//    HomeScreen(nav)
-//}
+
